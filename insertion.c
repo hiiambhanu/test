@@ -4,7 +4,7 @@ void display(int a[], int n){
     int i;
      printf("The array is \n");
     for(i=0;i<n;i++)
-        printf("%d\n", a[i]);
+        printf("%d ", a[i]);
 }
 
 void insert(int a[], int *n, int item, int position){
@@ -62,7 +62,7 @@ int main(){
 
     display(a, n);
 
-    printf("Enter the element to be deleted");
+    printf("\nEnter the element to be deleted");
     scanf("%d", &item);
 
     delete(a, &n, item);
