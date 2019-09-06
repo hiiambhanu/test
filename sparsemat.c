@@ -21,6 +21,7 @@ void conv_sparse(int a[10][10], int m, int n, int sparse[3][10], int* count){
     }
 }
 
+
 void display_sparse(int sparse[3][10], int count){
 
     int i, j, k = count;
@@ -120,7 +121,7 @@ void sum(int sparse[3][10], int sparse2[3][10], int sumsparse[3][10], int m, int
         mat2++;
     }
 
-    display_sparse(sumsparse, max(count2, count));
+    display_sparse(sumsparse, mat3);
     
 }
 
@@ -173,8 +174,6 @@ void main()
 
     display_sparse(sparse2, count2);
 
-    sum(sparse, sparse2, sumsparse, m, n, p, q, count, count2);
-    count3 = max(count2, count);
-    
+    sum(sparse, sparse2, sumsparse, m, n, p, q, count, count2);    
 
 }
