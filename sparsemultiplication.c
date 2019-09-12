@@ -85,18 +85,84 @@ void conv_sparse(int a[10][10], int m, int n, int sparse[3][10], int* count){
     }
 }
 
+void multiply(int sparse[3][10], int sparse2[3][10], int count, int count2, int mul[3][10], int *count3, int m, int n, int p, int q){
+    
+    if(n!=p){
+        printf("Matrices cannot be multiplied ");
+        return;
+    }
+
+    int apos, tempa,sum, tempb, bpos, r, c;
+    transpose(sparse2, count2);
+    *count3 = 0;
+    for(apos=0;apos<count;){
+        
+        r = sparse[0][apos];
+
+        for(bpos = 0 ; bpos < count2;){
+            c = sparse2[0][bpos];
+
+            tempa = apos;
+            tempb = bpos;
+
+            sum = 0;
+
+            while(tempa < count && sparse[0][tempa] == r &&
+             tempb < count2 && sparse2[0][tempb] == c){
+                 if(sparse[1][tempa] < sparse2[1][tempb])
+                    tempa++;
+
+                else if(sparse[1][tempa] > sparse2[1][tempb])
+                    tempb++;    
+                
+                else {
+                    sum += sparse[2][tempa] * sparse2[2][tempb];
+                    tempa++;
+                    tempb++; 
+                }
+            }
+
+            if (sum)
+                {
+                    mul[0][*count3] = r;
+                    mul[1][*count3] = c;
+                    mul[2][*count3] = sum;
+                    (*count3)++;
+                }
+
+            while (bpos < count2 && sparse2[0][bpos] == c) 
+					bpos++; 
+        }
+        while (apos < count && sparse[0][apos] == r) 
+					apos++;
+    }
+
+
+}
+
+
+
 int main(){
-    int i, j, m, n,a[10][10],  sparse[3][10], count = 0;
-    printf("Enter m and n");
+    int i, j, m, n, p, q, a[10][10], b[10][10], sparse[3][10], sparse2[3][10], mul[3][10], count, count2, count3;
+    count = count2 = count3 = 0;
+    printf("Enter m, n and then the matrix\n");
     scanf("%d%d", &m, &n);
-    printf("Enter the matrix: ");
-    for(i = 0 ; i < m ; i++)
+    for(i = 0 ; i < m ; i ++)
         for(j = 0 ; j < n ; j++)
             scanf("%d", &a[i][j]);
+
     conv_sparse(a, m, n, sparse, &count);
-    display_sparse(sparse, count);
-    transpose(sparse, count);
-    display_sparse(sparse, count);
-    
+
+    printf("Enter p, q and then the matrix\n");
+    scanf("%d%d", &p, &q);
+    for(i = 0 ; i < p ; i ++)
+        for(j = 0 ; j < q ; j++)
+            scanf("%d", &b[i][j]);
+
+    conv_sparse(b, p, q, sparse2, &count2);
+
+    multiply(sparse, sparse2, count, count2, mul, &count3, m, n, p, q);
+    display_sparse(mul, count3);
+
     return 0;
 }
