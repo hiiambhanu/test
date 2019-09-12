@@ -6,6 +6,28 @@ void swap(int* a, int* b){
     *b= temp;
 }
 
+
+void display_sparse(int sparse[3][10], int count){
+
+    int i, j, k = count;
+    printf("\nNo of non zero elements are %d\nThe sparse matrix is\n", count);
+
+    for (i = 0; i < 3; i++)
+    {
+        if (i == 0)
+            printf("row: ");
+        else if (i == 1)
+            printf("col: ");
+        else
+            printf("val: ");
+        for (j = 0 ; j < k ; j++)
+        {
+            printf("%d ", sparse[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void sort(int sparse[3][10], int size)
 {
     for (int i = 0; i < size; i++)
@@ -63,44 +85,78 @@ void conv_sparse(int a[10][10], int m, int n, int sparse[3][10], int* count){
     }
 }
 
+void multiply(int sparse[3][10], int sparse2[3][10], int count, int count2, int mul[3][10], int count3){
+    
+    int apos, tempa,sum, tempb, bpos, r, c;
+    transpose(sparse2, count2);
+    count3 = 0;
+    for(apos=0;apos<count;){
+        
+        r = sparse[0][apos];
 
-void display_sparse(int sparse[3][10], int count){
+        for(bpos = 0 ; bpos < count2;){
+            c = sparse2[0][bpos];
 
-    int i, j, k = count;
-    printf("\nNo of non zero elements are %d\nThe sparse matrix is\n", count);
+            tempa = apos;
+            tempb = bpos;
 
-    for (i = 0; i < 3; i++)
-    {
-        if (i == 0)
-            printf("row: ");
-        else if (i == 1)
-            printf("col: ");
-        else
-            printf("val: ");
-        for (j = 0 ; j < k ; j++)
-        {
-            printf("%d ", sparse[i][j]);
+            sum = 0;
+
+            while(tempa < count && sparse[0][tempa] == r &&
+             tempb < count2 && sparse2[0][tempb] == c){
+                 if(sparse[1][tempa] < sparse2[1][tempb])
+                    tempa++;
+
+                else if(sparse[1][tempa] > sparse2[1][tempb])
+                    tempb++;    
+                
+                else {
+                    sum += sparse[2][tempa] * sparse2[2][tempb];
+                    tempa++;
+                    tempb++; 
+                }
+            }
+
+            if (sum)
+                {
+                    mul[0][count3] = r;
+                    mul[1][count3] = c;
+                    mul[2][count3] = sum;
+                    count3++;
+                }
+
+            while (bpos < count2 && sparse2[0][bpos] == c) 
+					bpos++; 
         }
-        printf("\n");
+        while (apos < count && sparse[0][apos] == r) 
+					apos++;
     }
+
+    display_sparse(mul, count3);
+
 }
 
+
+
 int main(){
-    int i, j, m, n, a[10][10], count=0, sparse[3][10];
-    printf("Enter the number of rows and coloumns. \n");
+    int i, j, m, n, p, q, a[10][10], b[10][10], sparse[3][10], sparse2[3][10], mul[3][10], count, count2, count3;
+    count = count2 = count3 = 0;
+    printf("Enter m, n and then the matrix");
     scanf("%d%d", &m, &n);
-
-    printf("Enter the matrix \n");
-
-    for (i = 0; i < m; i++)
-        for (j = 0; j < n; j++)
+    for(i = 0 ; i < m ; i ++)
+        for(j = 0 ; j < n ; j++)
             scanf("%d", &a[i][j]);
 
     conv_sparse(a, m, n, sparse, &count);
-    display_sparse(sparse, count);
 
-    transpose(sparse, count);
-    display_sparse(sparse, count);
+    printf("Enter p, q and then the matrix");
+    scanf("%d%d", &p, &q);
+    for(i = 0 ; i < p ; i ++)
+        for(j = 0 ; j < q ; j++)
+            scanf("%d", &b[i][j]);
 
+    conv_sparse(b, p, q, sparse2, &count2);
+
+    multiply(sparse, sparse2, count, count2, mul, count3);
     return 0;
 }
