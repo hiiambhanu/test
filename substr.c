@@ -25,5 +25,5 @@ void main()
                 count++;
         }
     }
-    printf("The number of occurences are %d\n", count);
+    printf("The number of occurrences are %d\n", count);
 }

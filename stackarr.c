@@ -42,11 +42,12 @@ int main(){
         switch (choice)
         {
         case 1:
+            printf("Enter the element to be pushed.\n");
             scanf("%d", &a);
             push(stack, &top, a);    
             break;
         case 2: 
-            pop(stack, &top);
+            pop(stack, &top);   
             break;
         case 3: 
             peek(stack, &top);

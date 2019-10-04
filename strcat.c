@@ -9,9 +9,9 @@ void concat(char a[100], char b[200]){
 }
 void main(){
     char a[100], b[200];
-    printf("Enter the two strings to be concatenated");
+    printf("Enter the two strings to be concatenated ");
     scanf("%s", b);
     scanf("%s", a);
     concat(a, b);
-    printf("The concatenated string is %s", b);
+    printf("The concatenated string is %s \n", b);
 }
