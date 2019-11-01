@@ -45,7 +45,7 @@ void main(){
     struct Stack s;
     s.top = NULL;
     while(1){   
-        printf("1. Push\n2. Pop\n3. Peek\n4. Exit\nEnter your choice\n");
+        printf("\n1. Push\n2. Pop\n3. Peek\n4. Exit\nEnter your choice\n");
         scanf("%d", &choice);
         switch (choice)
         {
