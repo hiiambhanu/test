@@ -25,7 +25,7 @@ void maxHeapify(int n, int i){
     int largest = i;
     if(left < n && a[i] < a[left]){
             largest = left;
-        }
+    }
 
     if (right<n && a[largest] < a[right])
         largest = right;

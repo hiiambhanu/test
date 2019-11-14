@@ -15,8 +15,7 @@ void dispPoly(struct node *thead)
     }
     else
     {
-        while (temp->next != NULL)
-        {
+        while (temp->next != NULL){
             printf(" %dx^%d +", temp->coeff, temp->exp);
             temp = temp->next;
         }
@@ -55,7 +54,7 @@ struct node *polyaddition(struct node *p1thead, struct node *p2thead)
         if (t1->exp > t2->exp)
         {
             ans = insNode(ans, t1->coeff, t1->exp);
-            t1 = t1->next;
+            t1  = t1->next;
         }
         else if (t1->exp < t2->exp)
         {
@@ -82,6 +81,7 @@ struct node *polyaddition(struct node *p1thead, struct node *p2thead)
         t2 = t2->next;
     }
     return ans;
+
 }
 struct node *getPoly(struct node *start)
 {

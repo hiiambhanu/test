@@ -93,6 +93,8 @@ void multiply(int sparse[3][10], int sparse2[3][10], int count, int count2, int 
     }
 
     int apos, tempa,sum, tempb, bpos, r, c;
+
+
     transpose(sparse2, count2);
     *count3 = 0;
     for(apos=0;apos<count;){
@@ -109,7 +111,8 @@ void multiply(int sparse[3][10], int sparse2[3][10], int count, int count2, int 
 
             while(tempa < count && sparse[0][tempa] == r &&
              tempb < count2 && sparse2[0][tempb] == c){
-                 if(sparse[1][tempa] < sparse2[1][tempb])
+                
+                if(sparse[1][tempa] < sparse2[1][tempb])                ////////////// Compare the cols of the first and second 
                     tempa++;
 
                 else if(sparse[1][tempa] > sparse2[1][tempb])
